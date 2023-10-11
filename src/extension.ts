@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
 import * as jsonc from 'jsonc-parser';
 
-class TECHTILE_VSCODE_AutoTerminal {
+class TECHTILE_VSCODE_TerminalAutomation {
 
 	private workspaceFolders: ReadonlyArray<vscode.WorkspaceFolder> = [];
 
-	private static _instance: TECHTILE_VSCODE_AutoTerminal;
-	public static instance(): TECHTILE_VSCODE_AutoTerminal {
-		return TECHTILE_VSCODE_AutoTerminal._instance || (TECHTILE_VSCODE_AutoTerminal._instance = new TECHTILE_VSCODE_AutoTerminal());
+	private static _instance: TECHTILE_VSCODE_TerminalAutomation;
+	public static instance(): TECHTILE_VSCODE_TerminalAutomation {
+		return TECHTILE_VSCODE_TerminalAutomation._instance || (TECHTILE_VSCODE_TerminalAutomation._instance = new TECHTILE_VSCODE_TerminalAutomation());
 	}
 
 	public activate(context: vscode.ExtensionContext) {
@@ -23,14 +23,14 @@ class TECHTILE_VSCODE_AutoTerminal {
 		this.workspaceFolders = vscode.workspace.workspaceFolders || [];
 
 		// listen for changes on workspace folders
-		console.info('AutoTerminal: activating workspace folder change listener');
+		console.info('TerminalAutomation: activating workspace folder change listener');
 		context.subscriptions.push(vscode.workspace.onDidChangeWorkspaceFolders((e) => {
 			const currentWorkspaceFolders = vscode.workspace.workspaceFolders || [];
 
 			// check for folder open
 			for (const folder of currentWorkspaceFolders) {
 				if (!this.workspaceFolders.find(f => f.uri.toString() === folder.uri.toString())) {
-					console.log(`AutoTerminal: folder opened: ${folder.name}`);
+					console.log(`TerminalAutomation: folder opened: ${folder.name}`);
 					this.open(folder);
 				}
 			}
@@ -38,7 +38,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 			// check for folder close
 			for (const folder of this.workspaceFolders) {
 				if (!currentWorkspaceFolders.find(f => f.uri.toString() === folder.uri.toString())) {
-					console.log(`AutoTerminal: folder closed: ${folder.name}`);
+					console.log(`TerminalAutomation: folder closed: ${folder.name}`);
 					this.close(folder);
 				}
 			}
@@ -63,7 +63,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 			return;
 
 		// create terminals according to config file
-		console.log(`Running AutoTerminal open config for ${folder.name}`);
+		console.log(`Running TerminalAutomation open config for ${folder.name}`);
 		config.open.forEach((tabData: any) => {
 			if (!Array.isArray(tabData)) {
 				this.openTerminal(tabData);
@@ -106,7 +106,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 				});
 				break;
 			default:
-				console.error("AutoTerminal: Unknown macro", macro);
+				console.error("TerminalAutomation: Unknown macro", macro);
 		}
 	}
 
@@ -127,12 +127,12 @@ class TECHTILE_VSCODE_AutoTerminal {
 				terminal.sendText(data.command);
 			return terminal;
 		} catch (error) {
-			console.error("AutoTerminal error on creating terminal", data, parent, error);
+			console.error("TerminalAutomation error on creating terminal", data, parent, error);
 		}
 	}
 
 	private async getConfig(folder: vscode.WorkspaceFolder) {
-		const uri = vscode.Uri.joinPath(folder.uri, '.vscode/.auto-terminal.jsonc');
+		const uri = vscode.Uri.joinPath(folder.uri, '.vscode/.terminal-automation.jsonc');
 
 		// abort if no workspace open
 		if (vscode.workspace.workspaceFolders === undefined)
@@ -143,7 +143,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 		try {
 			await vscode.workspace.fs.stat(uri);
 		} catch (error) {
-			console.info("Skipping AutoTerminal workspace folder without config file", folder.name);
+			console.info("Skipping TerminalAutomation workspace folder without config file", folder.name);
 			return null;
 		}
 
@@ -153,7 +153,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 			const fileContentUint8Array = await vscode.workspace.fs.readFile(uri);
 			fileContent = new TextDecoder().decode(fileContentUint8Array);
 		} catch (error) {
-			console.error("Error reading AutoTerminal workspace config file", error);
+			console.error("Error reading TerminalAutomation workspace config file", error);
 			return null;
 		}
 
@@ -162,7 +162,7 @@ class TECHTILE_VSCODE_AutoTerminal {
 		try {
 			parsed = jsonc.parse(fileContent);
 		} catch (error) {
-			console.error("Error parsing AutoTerminal workspace config file", error);
+			console.error("Error parsing TerminalAutomation workspace config file", error);
 			return;
 		}
 		return parsed;
@@ -180,8 +180,8 @@ class TECHTILE_VSCODE_AutoTerminal {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	TECHTILE_VSCODE_AutoTerminal.instance().activate(context);
+	TECHTILE_VSCODE_TerminalAutomation.instance().activate(context);
 }
 export function deactivate(context: vscode.ExtensionContext) {
-	TECHTILE_VSCODE_AutoTerminal.instance().deactivate(context);
+	TECHTILE_VSCODE_TerminalAutomation.instance().deactivate(context);
 }

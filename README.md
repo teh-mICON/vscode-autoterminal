@@ -1,4 +1,4 @@
-# AutoTerminal for VSCode
+# TerminalAutomation for VSCode
 
 Automate your development workflow by running specified terminal commands whenever a workspace folder is opened or closed in VS Code.
 Perfect for automatically starting development servers and services, cleaning on startup, etc.
@@ -13,12 +13,12 @@ Perfect for automatically starting development servers and services, cleaning on
 ## How to Use
 
 1. Inside your workspace folder, navigate to `.vscode/` directory.
-2. Create a `.auto-terminal.jsonc` file if it doesn't already exist.
-3. Edit `.auto-terminal.jsonc` to configure the extension.
+2. Create a `.terminal-automation.jsonc` file if it doesn't already exist.
+3. Edit `.terminal-automation.jsonc` to configure the extension.
 
 ## Configuration File Format
 
-Here's an example `.auto-terminal.jsonc`:
+Here's an example `.terminal-automation.jsonc`:
 
 ```jsonc
 {

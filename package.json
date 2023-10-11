@@ -1,6 +1,6 @@
 {
-  "name": "autoterminal",
-  "displayName": "AutoTerminal",
+  "name": "terminal-automation",
+  "displayName": "TerminalAutomation",
   "description": "Open terminals and run commands on folder open; Automatically kill and close terminals on folder close",
   "version": "1.0.0",
   "engines": {
@@ -8,8 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/teh-mICON/vscode-autoterminal.git"
+    "url": "https://github.com/teh-mICON/vscode-terminal-automation.git"
   },
+  "publisher": "techtile",
   "categories": [
     "Other"
   ],
