@@ -1,24 +1,60 @@
+# AutoTerminal for VSCode
+
+Automate your development workflow by running specified terminal commands whenever a workspace folder is opened or closed in VS Code.
+Perfect for automatically starting development servers and services, cleaning on startup, etc.
+
 ## Features
 
-When opening a folder, this extension will look for a file .terminals.json and open the terminals specified.
+- Automatically opens terminal tabs and runs commands when a workspace folder is opened.
+- Supports running multiple commands in split terminal views.
+- Allows for different configurations for each folder.
+- Supports closing all terminals automatically when a folder is closed.
 
-The json file's root element is an array. This array holds items or arrays of items which will result in split terminals.
+## How to Use
 
-```json
-[
-  [
-    {
-      "name": "foo"
-    },
-    {
-      "name": "bar"
-    }
+1. Inside your workspace folder, navigate to `.vscode/` directory.
+2. Create a `.auto-terminal.jsonc` file if it doesn't already exist.
+3. Edit `.auto-terminal.jsonc` to configure the extension.
+
+## Configuration File Format
+
+Here's an example `.auto-terminal.jsonc`:
+
+```jsonc
+{
+  "open": [
+    [
+      {
+        "name": "the terminal name",
+        "path": "the filesystem path to open",
+        "command": "command(s) to run"
+      },
+      // additional terminal configs for this tab
+    ],
+    // additional terminal tabs
   ],
-  {
-    "name": "initial",
-    "path": "src",
-    "command": "echo 'foo';"
-  }
-]```
+  "close": [
+    "killall",
+    "closeall"
+  ]
+}
+```
 
-This will open 2 terminal tabs, one will be split in 2 terminals named foo and bar. The second will be named `initial`, cd into the `src` directory and execute `echo 'foo';` there.
+### `open`
+
+An array of arrays, representing tabs and the terminals in them. Each tab can contain multiple terminals. Each terminal is defined as an object with the following properties:
+
+- `name`: (string) The name of the terminal tab.
+- `command`: (optional string) The command to run in the terminal.
+- `path`: (optional string) The directory to open in the terminal.
+
+### `close`
+
+A string or an array of strings, representing the actions to take when the workspace is closed:
+
+- `killall`: Sends a SIGINT (Ctrl+C) to all terminals.
+- `closeall`: Closes all terminals.
+
+## Contributing
+
+Feel free to open issues or PRs!

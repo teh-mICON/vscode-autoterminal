@@ -1,10 +1,14 @@
 {
   "name": "autoterminal",
   "displayName": "AutoTerminal",
-  "description": "Open terminals and run commands on folder open",
-  "version": "0.0.1",
+  "description": "Open terminals and run commands on folder open; Automatically kill and close terminals on folder close",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.82.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teh-mICON/vscode-autoterminal.git"
   },
   "categories": [
     "Other"
@@ -18,12 +22,11 @@
   },
   "scripts": {
     "vscode:package": "npx vsce package",
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "vscode:publish": "npx vsce publish",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
@@ -32,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "@vscode/test-electron": "^2.3.4",
+    "esbuild": "^0.19.4",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
