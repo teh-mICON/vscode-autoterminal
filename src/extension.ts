@@ -132,7 +132,7 @@ class TECHTILE_VSCODE_TerminalAutomation {
 	}
 
 	private async getConfig(folder: vscode.WorkspaceFolder) {
-		const uri = vscode.Uri.joinPath(folder.uri, '.vscode/.terminal-automation.jsonc');
+		const uri = vscode.Uri.joinPath(folder.uri, '.vscode/terminal-automation.jsonc');
 
 		// abort if no workspace open
 		if (vscode.workspace.workspaceFolders === undefined)
