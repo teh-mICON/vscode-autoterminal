@@ -3,7 +3,7 @@
   "displayName": "TerminalAutomation",
   "description": "Open terminals and run commands on folder open; Automatically kill and close terminals on folder close",
   "version": "1.0.3",
-  "type": "module",
+  "type": "commonjs",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -18,15 +18,15 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./out/main.cjs",
+  "main": "./out/main.js",
   "contributes": {
     "commands": []
   },
   "scripts": {
     "vscode:package": "npx vsce package",
-    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "vscode:prepublish": "npx rollup -c --bundleConfigAsCjs",
     "vscode:publish": "npx vsce publish",
-    "build": "rollup -c"
+    "build": "rollup -c  --bundleConfigAsCjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.5",
