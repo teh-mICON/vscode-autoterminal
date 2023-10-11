@@ -9,10 +9,10 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/naming-convention": "warn",
+        "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/semi": "warn",
         "curly": "off",
-        "eqeqeq": "warn",
+        "eqeqeq": "offxi",
         "no-throw-literal": "warn",
         "semi": "off"
     },

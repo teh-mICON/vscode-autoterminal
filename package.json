@@ -2,7 +2,8 @@
   "name": "terminal-automation",
   "displayName": "TerminalAutomation",
   "description": "Open terminals and run commands on folder open; Automatically kill and close terminals on folder close",
-  "version": "1.0.0",
+  "version": "1.0.3",
+  "type": "module",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -17,7 +18,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./out/extension.js",
+  "main": "./out/main.cjs",
   "contributes": {
     "commands": []
   },
@@ -25,21 +26,23 @@
     "vscode:package": "npx vsce package",
     "vscode:prepublish": "npm run esbuild-base -- --minify",
     "vscode:publish": "npx vsce publish",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
-    "esbuild": "npm run esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch"
+    "build": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.5",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/vscode": "^1.82.0",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "@vscode/test-electron": "^2.3.4",
-    "esbuild": "^0.19.4",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
+    "rollup": "^4.0.2",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
