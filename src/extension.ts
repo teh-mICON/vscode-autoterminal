@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as jsonc from 'jsonc-parser';
+import * as path from 'path'
 
 class TECHTILE_VSCODE_TerminalAutomation {
 
@@ -11,14 +12,6 @@ class TECHTILE_VSCODE_TerminalAutomation {
 	}
 
 	public activate(context: vscode.ExtensionContext) {
-		// remove existing terminals
-		if (vscode.window.terminals.length)
-			vscode.window.terminals.forEach(terminal => {
-				this.sendSIGINT(terminal);
-				terminal.dispose();
-			});
-
-
 		// set initial state
 		this.workspaceFolders = vscode.workspace.workspaceFolders || [];
 
@@ -132,7 +125,8 @@ class TECHTILE_VSCODE_TerminalAutomation {
 	}
 
 	private async getConfig(folder: vscode.WorkspaceFolder) {
-		const uri = vscode.Uri.joinPath(folder.uri, '.vscode/terminal-automation.jsonc');
+		const filePath = path.join(folder.uri.fsPath, '.vscode', 'terminal-automation.jsonc');
+		const uri = vscode.Uri.file(filePath);
 
 		// abort if no workspace open
 		if (vscode.workspace.workspaceFolders === undefined)

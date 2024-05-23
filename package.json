@@ -26,7 +26,7 @@
     "vscode:package": "npx vsce package",
     "vscode:prepublish": "npx rollup -c --bundleConfigAsCjs",
     "vscode:publish": "npx vsce publish",
-    "build": "rollup -c  --bundleConfigAsCjs"
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.5",
@@ -43,10 +43,11 @@
     "rollup": "^4.0.2",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vscode": "^1.1.37"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "jsonc-parser": "^3.2.0"
+    "jsonc-parser": "^3.2.1"
   }
 }
