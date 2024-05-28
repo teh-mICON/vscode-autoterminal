@@ -2,7 +2,7 @@
   "name": "terminal-automation",
   "displayName": "TerminalAutomation",
   "description": "Open terminals and run commands on folder open; Automatically kill and close terminals on folder close",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "commonjs",
   "engines": {
     "vscode": "^1.82.0"
@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "jsonc-parser": "^3.2.1"
+    "jsonc-parser": "^3.2.1",
+    "lodash": "^4.17.21"
   }
 }
